@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Invatare_Automata
+namespace GeneratePoints
 {
     public partial class MainForm : Form
     {

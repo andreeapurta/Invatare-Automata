@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Invatare_Automata
+namespace GeneratePoints
 {
     public class Area
     {

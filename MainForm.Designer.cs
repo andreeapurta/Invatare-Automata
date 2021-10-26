@@ -1,5 +1,5 @@
 ﻿
-namespace Invatare_Automata
+namespace GeneratePoints
 {
     partial class MainForm
     {
