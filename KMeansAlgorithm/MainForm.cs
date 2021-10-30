@@ -136,6 +136,11 @@ namespace KMeansAlgorithm
 
         private void ComputeSimilarity()
         {
+            foreach (var centroid in centroids)
+            {
+                centroid.AssignedPoints.Clear();
+            }
+
             double distance;
             foreach (var point in points)
             {
@@ -143,7 +148,7 @@ namespace KMeansAlgorithm
                 int centroidNr = 0;
                 for (int j = 0; j < numberOfCentroids; j++)
                 {
-                    distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.X, point.Y);
+                    distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.Y, point.Y);
                     if (min > distance)
                     {
                         min = distance;
@@ -165,6 +170,7 @@ namespace KMeansAlgorithm
                 {
                     pen = new Pen(centroids[i].Color);
                     graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
+                    graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
                 }
             }
         }
@@ -220,11 +226,11 @@ namespace KMeansAlgorithm
                 centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
                 centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
             }
-            ComputeSimilarity();
             for (int i = 0; i < numberOfCentroids; i++)
             {
                 Brush brush = new SolidBrush(centroids[i].Color);
                 graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
             }
             ComputeCost();
         }
