@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace KMeansAlgorithm
 {
@@ -8,8 +9,9 @@ namespace KMeansAlgorithm
         public string Name { get; set; }
         public Point Center { get; set; }
         public List<Point> AssignedPoints { get; set; }
+        public Color Color { get; set; }
 
-        public Centroid(int centerX, int centerY, string name)
+        public Centroid(int centerX, int centerY, string name, Color color)
         {
             if (centerX > 300 || centerX < -300)
             {
@@ -23,6 +25,7 @@ namespace KMeansAlgorithm
             Center = new Point(centerX, centerY);
             Name = name;
             AssignedPoints = new List<Point>();
+            Color = color;
         }
     }
 }

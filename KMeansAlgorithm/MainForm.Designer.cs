@@ -29,20 +29,105 @@ namespace KMeansAlgorithm
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.similaritateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centruDeGreutateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.epociLbl = new System.Windows.Forms.Label();
+            this.costLbl = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Form1
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.similaritateToolStripMenuItem,
+            this.centruDeGreutateToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.StartBtn_Click);
+            // 
+            // similaritateToolStripMenuItem
+            // 
+            this.similaritateToolStripMenuItem.Name = "similaritateToolStripMenuItem";
+            this.similaritateToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.similaritateToolStripMenuItem.Text = "Similaritate";
+            // 
+            // centruDeGreutateToolStripMenuItem
+            // 
+            this.centruDeGreutateToolStripMenuItem.Name = "centruDeGreutateToolStripMenuItem";
+            this.centruDeGreutateToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.centruDeGreutateToolStripMenuItem.Text = "Centru de greutate";
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Location = new System.Drawing.Point(15, 37);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(632, 528);
+            this.mainPanel.TabIndex = 1;
+            // 
+            // epociLbl
+            // 
+            this.epociLbl.AutoSize = true;
+            this.epociLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.epociLbl.Location = new System.Drawing.Point(690, 51);
+            this.epociLbl.Name = "epociLbl";
+            this.epociLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.epociLbl.Size = new System.Drawing.Size(54, 18);
+            this.epociLbl.TabIndex = 2;
+            this.epociLbl.Text = "Epoci: ";
+            // 
+            // costLbl
+            // 
+            this.costLbl.AutoSize = true;
+            this.costLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costLbl.Location = new System.Drawing.Point(690, 83);
+            this.costLbl.Name = "costLbl";
+            this.costLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.costLbl.Size = new System.Drawing.Size(48, 18);
+            this.costLbl.TabIndex = 3;
+            this.costLbl.Text = "Cost: ";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(871, 577);
+            this.Controls.Add(this.costLbl);
+            this.Controls.Add(this.epociLbl);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem similaritateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem centruDeGreutateToolStripMenuItem;
+        private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.Label epociLbl;
+        private System.Windows.Forms.Label costLbl;
     }
 }
 
