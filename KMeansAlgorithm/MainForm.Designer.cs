@@ -71,6 +71,7 @@ namespace KMeansAlgorithm
             this.centruDeGreutateToolStripMenuItem.Name = "centruDeGreutateToolStripMenuItem";
             this.centruDeGreutateToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
             this.centruDeGreutateToolStripMenuItem.Text = "Centru de greutate";
+            this.centruDeGreutateToolStripMenuItem.Click += new System.EventHandler(this.CentruDeGreutate_Click);
             // 
             // mainPanel
             // 

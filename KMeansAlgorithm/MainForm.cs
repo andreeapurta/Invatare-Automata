@@ -12,10 +12,12 @@ namespace KMeansAlgorithm
         private int numberOfCentroids;
         private Centroid[] centroids;
         private List<Point> points;
-        private List<double> pointToCentroidDistance;
+        private readonly List<double> pointToCentroidDistance;
         private Color[] centroidsColors;
-        private Graphics graph;
+        private readonly Graphics graph;
         private const Distance distanceMethod = Distance.Euclidian;
+        private int epochNumber;
+        private double cost;
 
         public MainForm()
         {
@@ -81,8 +83,6 @@ namespace KMeansAlgorithm
             centroidsColors = new Color[numberOfCentroids];
             GenerateCentroidsColors();
             mainPanel.Refresh();
-            int epochNumber = 1;
-            int cost = 0;
             costLbl.Text = "Cost: " + cost;
             Pen pen = new Pen(Color.Black);
             InitializeGraph(graph, pen);
@@ -140,16 +140,18 @@ namespace KMeansAlgorithm
             foreach (var point in points)
             {
                 double min = Double.MaxValue;
+                int centroidNr = 0;
                 for (int j = 0; j < numberOfCentroids; j++)
                 {
                     distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.X, point.Y);
                     if (min > distance)
                     {
                         min = distance;
-                        centroids[j].AssignedPoints.Add(point); //punctul point apartine centroidului cu distanta cea mai mica
-                        pointToCentroidDistance.Add(distance);  //retin distanta fiecarui punct fata de centroid
+                        centroidNr = j;
                     }
                 }
+                centroids[centroidNr].AssignedPoints.Add(point); //punctul point apartine centroidului cu distanta cea mai mica
+                pointToCentroidDistance.Add(min);  //retin distanta fiecarui punct fata de centroid
             }
         }
 
@@ -169,11 +171,63 @@ namespace KMeansAlgorithm
 
         private void SimilarityBtn_Click(object sender, EventArgs e)
         {
+            epochNumber = 0;
             mainPanel.Refresh();
             ComputeSimilarity();
             Pen pen = new Pen(Color.Black);
             InitializeGraph(graph, pen);
             DrawCentroidsAndTreirAssignPoints(pen);
+        }
+
+        private void ComputeCost()
+        {
+            epociLbl.Text = "Epoca: " + epochNumber.ToString();
+            double costCopy = cost;
+            cost = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                cost += pointToCentroidDistance[i];
+            }
+            costLbl.Text = "Cost: " + cost.ToString();
+            if (cost != costCopy)
+            {
+                epochNumber++;
+            }
+            else
+            {
+                MessageBox.Show("Finish");
+            }
+        }
+
+        private void CentruDeGreutate_Click(object sender, EventArgs e)
+        {
+            long sumX, sumY;
+            mainPanel.Refresh();
+            Pen pen = new Pen(Color.Black);
+            InitializeGraph(graph, pen);
+            for (int i = 0; i < numberOfCentroids; i++)
+            {
+                sumX = 0;
+                sumY = 0;
+                foreach (var assignedPoint in centroids[i].AssignedPoints)
+                {
+                    pen = new Pen(centroids[i].Color);
+                    graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
+                    sumX += assignedPoint.X;
+                    sumY += assignedPoint.Y;
+                }
+                int x = (int)sumX;
+                int p = (int)sumY;
+                centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
+                centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
+            }
+            ComputeSimilarity();
+            for (int i = 0; i < numberOfCentroids; i++)
+            {
+                Brush brush = new SolidBrush(centroids[i].Color);
+                graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+            }
+            ComputeCost();
         }
     }
 }
