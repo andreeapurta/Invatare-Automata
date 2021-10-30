@@ -38,7 +38,7 @@ namespace KMeansAlgorithm
         {
             numberOfCentroids = random.Next(2, 11);
             centroids = new Centroid[numberOfCentroids];
-            kLbl.Text = numberOfCentroids.ToString();
+            kLbl.Text = "K: " + numberOfCentroids.ToString();
         }
 
         private List<Point> GetThePoints(StreamReader reader)
@@ -216,8 +216,7 @@ namespace KMeansAlgorithm
                     sumX += assignedPoint.X;
                     sumY += assignedPoint.Y;
                 }
-                int x = (int)sumX;
-                int p = (int)sumY;
+
                 centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
                 centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
             }
