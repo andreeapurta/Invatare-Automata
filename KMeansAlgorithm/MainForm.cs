@@ -140,7 +140,6 @@ namespace KMeansAlgorithm
             {
                 centroid.AssignedPoints.Clear();
             }
-
             double distance;
             foreach (var point in points)
             {
@@ -190,7 +189,7 @@ namespace KMeansAlgorithm
             epociLbl.Text = "Epoca: " + epochNumber.ToString();
             double costCopy = cost;
             cost = 0;
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < pointToCentroidDistance.Count; i++)
             {
                 cost += pointToCentroidDistance[i];
             }

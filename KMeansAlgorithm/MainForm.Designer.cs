@@ -77,14 +77,14 @@ namespace KMeansAlgorithm
             // 
             this.mainPanel.Location = new System.Drawing.Point(22, 27);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(684, 616);
+            this.mainPanel.Size = new System.Drawing.Size(656, 616);
             this.mainPanel.TabIndex = 1;
             // 
             // epociLbl
             // 
             this.epociLbl.AutoSize = true;
             this.epociLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.epociLbl.Location = new System.Drawing.Point(712, 55);
+            this.epociLbl.Location = new System.Drawing.Point(693, 54);
             this.epociLbl.Name = "epociLbl";
             this.epociLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.epociLbl.Size = new System.Drawing.Size(54, 18);
@@ -95,7 +95,7 @@ namespace KMeansAlgorithm
             // 
             this.costLbl.AutoSize = true;
             this.costLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.costLbl.Location = new System.Drawing.Point(712, 82);
+            this.costLbl.Location = new System.Drawing.Point(693, 87);
             this.costLbl.Name = "costLbl";
             this.costLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.costLbl.Size = new System.Drawing.Size(48, 18);
@@ -106,7 +106,7 @@ namespace KMeansAlgorithm
             // 
             this.kLbl.AutoSize = true;
             this.kLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kLbl.Location = new System.Drawing.Point(712, 27);
+            this.kLbl.Location = new System.Drawing.Point(693, 27);
             this.kLbl.Name = "kLbl";
             this.kLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.kLbl.Size = new System.Drawing.Size(26, 18);
