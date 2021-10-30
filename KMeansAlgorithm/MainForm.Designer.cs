@@ -36,6 +36,7 @@ namespace KMeansAlgorithm
             this.mainPanel = new System.Windows.Forms.Panel();
             this.epociLbl = new System.Windows.Forms.Label();
             this.costLbl = new System.Windows.Forms.Label();
+            this.kLbl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@ namespace KMeansAlgorithm
             this.centruDeGreutateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(879, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -63,6 +64,7 @@ namespace KMeansAlgorithm
             this.similaritateToolStripMenuItem.Name = "similaritateToolStripMenuItem";
             this.similaritateToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.similaritateToolStripMenuItem.Text = "Similaritate";
+            this.similaritateToolStripMenuItem.Click += new System.EventHandler(this.SimilarityBtn_Click);
             // 
             // centruDeGreutateToolStripMenuItem
             // 
@@ -72,16 +74,16 @@ namespace KMeansAlgorithm
             // 
             // mainPanel
             // 
-            this.mainPanel.Location = new System.Drawing.Point(15, 37);
+            this.mainPanel.Location = new System.Drawing.Point(22, 27);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(632, 528);
+            this.mainPanel.Size = new System.Drawing.Size(684, 616);
             this.mainPanel.TabIndex = 1;
             // 
             // epociLbl
             // 
             this.epociLbl.AutoSize = true;
             this.epociLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.epociLbl.Location = new System.Drawing.Point(690, 51);
+            this.epociLbl.Location = new System.Drawing.Point(712, 55);
             this.epociLbl.Name = "epociLbl";
             this.epociLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.epociLbl.Size = new System.Drawing.Size(54, 18);
@@ -92,18 +94,30 @@ namespace KMeansAlgorithm
             // 
             this.costLbl.AutoSize = true;
             this.costLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.costLbl.Location = new System.Drawing.Point(690, 83);
+            this.costLbl.Location = new System.Drawing.Point(712, 82);
             this.costLbl.Name = "costLbl";
             this.costLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.costLbl.Size = new System.Drawing.Size(48, 18);
             this.costLbl.TabIndex = 3;
             this.costLbl.Text = "Cost: ";
             // 
+            // kLbl
+            // 
+            this.kLbl.AutoSize = true;
+            this.kLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kLbl.Location = new System.Drawing.Point(712, 27);
+            this.kLbl.Name = "kLbl";
+            this.kLbl.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.kLbl.Size = new System.Drawing.Size(26, 18);
+            this.kLbl.TabIndex = 4;
+            this.kLbl.Text = "K: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 577);
+            this.ClientSize = new System.Drawing.Size(879, 694);
+            this.Controls.Add(this.kLbl);
             this.Controls.Add(this.costLbl);
             this.Controls.Add(this.epociLbl);
             this.Controls.Add(this.mainPanel);
@@ -128,6 +142,7 @@ namespace KMeansAlgorithm
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Label epociLbl;
         private System.Windows.Forms.Label costLbl;
+        private System.Windows.Forms.Label kLbl;
     }
 }
 

@@ -12,19 +12,31 @@ namespace KMeansAlgorithm
         private int numberOfCentroids;
         private Centroid[] centroids;
         private List<Point> points;
+        private List<double> pointToCentroidDistance;
+        private Color[] centroidsColors;
         private Graphics graph;
+        private const Distance distanceMethod = Distance.Euclidian;
 
         public MainForm()
         {
+            //initializing
             InitializeComponent();
             random = new Random();
+            pointToCentroidDistance = new List<double>();
             graph = mainPanel.CreateGraphics();
-
-            //Pas 1: generare nr de centroizi [2,10]
-            numberOfCentroids = random.Next(2, 11);
-            centroids = new Centroid[numberOfCentroids];
+            GenerateCentroidsColors();
             StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + @"\generatedPoints.txt");
             points = GetThePoints(reader);
+        }
+
+        /// <summary>
+        /// //Step 1: Generating a ranom number of centroids[2,10]
+        /// </summary>
+        private void GetTheNumberOfCentroids(Random random)
+        {
+            numberOfCentroids = random.Next(2, 11);
+            centroids = new Centroid[numberOfCentroids];
+            kLbl.Text = numberOfCentroids.ToString();
         }
 
         private List<Point> GetThePoints(StreamReader reader)
@@ -40,24 +52,24 @@ namespace KMeansAlgorithm
             return points;
         }
 
-        //private double GenerateDistance(int kx, int x, int ky, int y)
-        //{
-        //    double distanta = 0;
-        //    switch (metodaSimilaritate)
-        //    {
-        //        case "Euclidian":
-        //            {
-        //                distanta = Math.Sqrt(Math.Pow(Math.Abs(centroidCenter.X - point.X), 2) + Math.Pow(Math.Abs(centroidCenter.Y - point.Y), 2));
-        //                break;
-        //            }
-        //        case "Manhattan":
-        //            {
-        //                distanta = Math.Abs(centroidCenter.X - point.X) + Math.Abs(centroidCenter.Y - point.Y)
-        //                break;
-        //            }
-        //    }
-        //    return distanta;
-        //}
+        private double GetDistance(int centroidCenterX, int x, int centroidCenterY, int y)
+        {
+            double distance = 0;
+            switch (distanceMethod)
+            {
+                case Distance.Manhattan:
+                    {
+                        distance = Math.Abs(centroidCenterX - x) + Math.Abs(centroidCenterY - y);
+                        break;
+                    }
+                case Distance.Euclidian:
+                    {
+                        distance = Math.Sqrt(Math.Pow(Math.Abs(centroidCenterX - x), 2) + Math.Pow(Math.Abs(centroidCenterY - y), 2));
+                        break;
+                    }
+            }
+            return distance;
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -65,27 +77,45 @@ namespace KMeansAlgorithm
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
+            GetTheNumberOfCentroids(random);
+            centroidsColors = new Color[numberOfCentroids];
+            GenerateCentroidsColors();
+            mainPanel.Refresh();
             int epochNumber = 1;
             int cost = 0;
             costLbl.Text = "Cost: " + cost;
-            InitializeGraph(graph);
+            Pen pen = new Pen(Color.Black);
+            InitializeGraph(graph, pen);
+            DrawPoints(graph);
             DrawCentroids(graph);
         }
 
+        private void GenerateCentroidsColors()
+        {
+            Color randomColor;
+            for (int i = 0; i < numberOfCentroids; i++)
+            {
+                randomColor = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
+                centroidsColors[i] = randomColor;
+            }
+        }
+
+        /// <summary>
+        /// //Step 2: draw centroids in random places in the defined space
+        /// </summary>
         private void DrawCentroids(Graphics graph)
         {
             for (int i = 0; i < numberOfCentroids; i++)
             {
-                Color randomColor = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
-                centroids[i] = new Centroid(random.Next(-300, 301), random.Next(-300, 301), "Centroid " + (i + 1), randomColor);
+                //Color randomColor = Color.FromArgb((int)(0xFF000000 + (random.Next(0xFFFFFF) & 0x7F7F7F))); //only dark colors
+                centroids[i] = new Centroid(random.Next(-300, 301), random.Next(-300, 301), "Centroid " + (i + 1), centroidsColors[i]);
                 Brush brush = new SolidBrush(centroids[i].Color);
                 graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
             }
         }
 
-        private void InitializeGraph(Graphics graph)
+        private void InitializeGraph(Graphics graph, Pen pen)
         {
-            Pen pen = new Pen(Color.Black);
             pen.Width = 1;
 
             //x
@@ -93,17 +123,57 @@ namespace KMeansAlgorithm
 
             //x
             graph.DrawLine(pen, 300, 600, 300, 0);
-
-            //draw points
-            DrawPoints(graph, pen);
         }
 
-        private void DrawPoints(Graphics graph, Pen pen)
+        private void DrawPoints(Graphics graph)
         {
+            Pen pen = new Pen(Color.Black);
             foreach (var point in points)
             {
                 graph.DrawRectangle(pen, point.X + 300, 300 - point.Y, 1, 1);
             }
+        }
+
+        private void ComputeSimilarity()
+        {
+            double distance;
+            foreach (var point in points)
+            {
+                double min = Double.MaxValue;
+                for (int j = 0; j < numberOfCentroids; j++)
+                {
+                    distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.X, point.Y);
+                    if (min > distance)
+                    {
+                        min = distance;
+                        centroids[j].AssignedPoints.Add(point); //punctul point apartine centroidului cu distanta cea mai mica
+                        pointToCentroidDistance.Add(distance);  //retin distanta fiecarui punct fata de centroid
+                    }
+                }
+            }
+        }
+
+        private void DrawCentroidsAndTreirAssignPoints(Pen pen)
+        {
+            for (int i = 0; i < numberOfCentroids; i++)
+            {
+                Brush brush = new SolidBrush(centroids[i].Color);
+                graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                foreach (var assignedPoint in centroids[i].AssignedPoints)
+                {
+                    pen = new Pen(centroids[i].Color);
+                    graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
+                }
+            }
+        }
+
+        private void SimilarityBtn_Click(object sender, EventArgs e)
+        {
+            mainPanel.Refresh();
+            ComputeSimilarity();
+            Pen pen = new Pen(Color.Black);
+            InitializeGraph(graph, pen);
+            DrawCentroidsAndTreirAssignPoints(pen);
         }
     }
 }
