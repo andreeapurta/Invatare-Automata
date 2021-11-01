@@ -31,7 +31,6 @@ namespace KMeansAlgorithm
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.similaritateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.centruDeGreutateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.epociLbl = new System.Windows.Forms.Label();
@@ -44,7 +43,6 @@ namespace KMeansAlgorithm
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
-            this.similaritateToolStripMenuItem,
             this.centruDeGreutateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -58,13 +56,6 @@ namespace KMeansAlgorithm
             this.startToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.StartBtn_Click);
-            // 
-            // similaritateToolStripMenuItem
-            // 
-            this.similaritateToolStripMenuItem.Name = "similaritateToolStripMenuItem";
-            this.similaritateToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.similaritateToolStripMenuItem.Text = "Similaritate";
-            this.similaritateToolStripMenuItem.Click += new System.EventHandler(this.SimilarityBtn_Click);
             // 
             // centruDeGreutateToolStripMenuItem
             // 
@@ -139,7 +130,6 @@ namespace KMeansAlgorithm
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem similaritateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem centruDeGreutateToolStripMenuItem;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Label epociLbl;

@@ -159,31 +159,6 @@ namespace KMeansAlgorithm
             }
         }
 
-        private void DrawCentroidsAndTreirAssignPoints(Pen pen)
-        {
-            for (int i = 0; i < numberOfCentroids; i++)
-            {
-                Brush brush = new SolidBrush(centroids[i].Color);
-                graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
-                foreach (var assignedPoint in centroids[i].AssignedPoints)
-                {
-                    pen = new Pen(centroids[i].Color);
-                    graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
-                    graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
-                }
-            }
-        }
-
-        private void SimilarityBtn_Click(object sender, EventArgs e)
-        {
-            epochNumber = 0;
-            mainPanel.Refresh();
-            ComputeSimilarity();
-            Pen pen = new Pen(Color.Black);
-            InitializeGraph(graph, pen);
-            DrawCentroidsAndTreirAssignPoints(pen);
-        }
-
         private void ComputeCost()
         {
             double costCopy = cost;
@@ -203,10 +178,12 @@ namespace KMeansAlgorithm
                 MessageBox.Show("Finish");
             }
             epociLbl.Text = "Epoca: " + epochNumber.ToString();
+            costLbl.Text = "Cost: " + cost.ToString();
         }
 
         private void CentruDeGreutate_Click(object sender, EventArgs e)
         {
+            ComputeSimilarity();
             long sumX, sumY;
             mainPanel.Refresh();
             Pen pen = new Pen(Color.Black);
