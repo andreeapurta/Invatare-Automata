@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace KMeansAlgorithm
@@ -80,6 +81,7 @@ namespace KMeansAlgorithm
         private void StartBtn_Click(object sender, EventArgs e)
         {
             epochNumber = 0;
+            cost = 0;
             GetTheNumberOfCentroids(random);
             centroidsColors = new Color[numberOfCentroids];
             GenerateCentroidsColors();
@@ -193,24 +195,34 @@ namespace KMeansAlgorithm
             {
                 sumX = 0;
                 sumY = 0;
-                foreach (var assignedPoint in centroids[i].AssignedPoints)
+                if (!centroids[i].AssignedPoints.Count.Equals(0))
                 {
-                    pen = new Pen(centroids[i].Color);
-                    graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
-                    sumX += assignedPoint.X;
-                    sumY += assignedPoint.Y;
-                }
+                    foreach (var assignedPoint in centroids[i].AssignedPoints)
+                    {
+                        pen = new Pen(centroids[i].Color);
+                        graph.DrawRectangle(pen, assignedPoint.X + 300, 300 - assignedPoint.Y, 1, 1);
+                        sumX += assignedPoint.X;
+                        sumY += assignedPoint.Y;
+                    }
 
-                centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
-                centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
+                    centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
+                    centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
+                }
             }
             for (int i = 0; i < numberOfCentroids; i++)
             {
-                Brush brush = new SolidBrush(centroids[i].Color);
-                graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
-                graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                if (!centroids[i].AssignedPoints.Count.Equals(0))
+                {
+                    Brush brush = new SolidBrush(centroids[i].Color);
+                    graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                    graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                }
             }
             ComputeCost();
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }
