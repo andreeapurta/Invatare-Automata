@@ -79,6 +79,7 @@ namespace KMeansAlgorithm
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
+            epochNumber = 0;
             GetTheNumberOfCentroids(random);
             centroidsColors = new Color[numberOfCentroids];
             GenerateCentroidsColors();
@@ -181,7 +182,7 @@ namespace KMeansAlgorithm
             costLbl.Text = "Cost: " + cost.ToString();
         }
 
-        private void CentruDeGreutate_Click(object sender, EventArgs e)
+        private void ComputeZonesBtn_Click(object sender, EventArgs e)
         {
             ComputeSimilarity();
             long sumX, sumY;
@@ -210,10 +211,6 @@ namespace KMeansAlgorithm
                 graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
             }
             ComputeCost();
-        }
-
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
-        {
         }
     }
 }

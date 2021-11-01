@@ -31,7 +31,7 @@ namespace KMeansAlgorithm
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.centruDeGreutateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.computeZonesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.epociLbl = new System.Windows.Forms.Label();
             this.costLbl = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@ namespace KMeansAlgorithm
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
-            this.centruDeGreutateToolStripMenuItem});
+            this.computeZonesMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(879, 24);
@@ -57,12 +57,12 @@ namespace KMeansAlgorithm
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.StartBtn_Click);
             // 
-            // centruDeGreutateToolStripMenuItem
+            // computeZonesMenuItem
             // 
-            this.centruDeGreutateToolStripMenuItem.Name = "centruDeGreutateToolStripMenuItem";
-            this.centruDeGreutateToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
-            this.centruDeGreutateToolStripMenuItem.Text = "Centru de greutate";
-            this.centruDeGreutateToolStripMenuItem.Click += new System.EventHandler(this.CentruDeGreutate_Click);
+            this.computeZonesMenuItem.Name = "computeZonesMenuItem";
+            this.computeZonesMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.computeZonesMenuItem.Text = "Compute zones";
+            this.computeZonesMenuItem.Click += new System.EventHandler(this.ComputeZonesBtn_Click);
             // 
             // mainPanel
             // 
@@ -70,7 +70,6 @@ namespace KMeansAlgorithm
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(656, 616);
             this.mainPanel.TabIndex = 1;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
             // epociLbl
             // 
@@ -130,7 +129,7 @@ namespace KMeansAlgorithm
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem centruDeGreutateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem computeZonesMenuItem;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Label epociLbl;
         private System.Windows.Forms.Label costLbl;
