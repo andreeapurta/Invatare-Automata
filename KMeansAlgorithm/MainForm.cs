@@ -186,14 +186,14 @@ namespace KMeansAlgorithm
 
         private void ComputeCost()
         {
-            epociLbl.Text = "Epoca: " + epochNumber.ToString();
             double costCopy = cost;
             cost = 0;
+            costLbl.Text = "Cost: " + cost.ToString();
+
             for (int i = 0; i < pointToCentroidDistance.Count; i++)
             {
                 cost += pointToCentroidDistance[i];
             }
-            costLbl.Text = "Cost: " + cost.ToString();
             if (cost != costCopy)
             {
                 epochNumber++;
@@ -202,6 +202,7 @@ namespace KMeansAlgorithm
             {
                 MessageBox.Show("Finish");
             }
+            epociLbl.Text = "Epoca: " + epochNumber.ToString();
         }
 
         private void CentruDeGreutate_Click(object sender, EventArgs e)
@@ -232,6 +233,10 @@ namespace KMeansAlgorithm
                 graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
             }
             ComputeCost();
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }

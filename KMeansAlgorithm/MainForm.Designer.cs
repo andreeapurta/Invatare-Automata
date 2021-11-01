@@ -79,6 +79,7 @@ namespace KMeansAlgorithm
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(656, 616);
             this.mainPanel.TabIndex = 1;
+            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
             // epociLbl
             // 
