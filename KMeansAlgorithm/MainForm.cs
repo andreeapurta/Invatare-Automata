@@ -2,11 +2,27 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace KMeansAlgorithm
 {
+    /// <summary>
+    /// Descriere algoritm.
+    /// Similaritatea elementelor dintr-un cluster Ci se calculează raportat la centrul de
+    /// greutate al clusterului.Algoritmul de clustering se bazează pe ideea că se poziționează în spațiul de
+    /// reprezentarea al datelor de antrenament un număr de centroizi, iar aceștia în procesul de învățare vor
+    ///încerca să-și găsească pozițiile optime care vor caracteriza cel mai bine toate datele de antrenament.
+    /// Etape:
+    ///1. Generăm un număr de centre de clase(centroizi) aleator k ∈ [2,10]
+    ///2. ”Așezăm” centroizii aleator în spațiul de reprezentare al datelor de intrare
+    ///3. Grupăm toate exemplele de intrare la câte un centroid astfel:
+    ///Calculăm similaritate între un exemplu de intrare și toți centroizii
+    ///Grupăm exemplul de intrare la centroidul cu care este cel mai similar
+    ///4. Calculăm centrul de greutate al tuturor exemplelor atribuite la un centriod(toate exemplele atribuite
+    ///la un centroid formează un cluster)
+    ///5. Mutăm centroidul în centrul de greutate calculat
+    ///6. Calculăm funcția de convergență(unde p este un exemplu iar Ci este centrul de greutate)
+    /// </summary>
     public partial class MainForm : Form
     {
         private readonly Random random;
@@ -137,20 +153,25 @@ namespace KMeansAlgorithm
             }
         }
 
+        /// <summary>
+        /// //Step 3 : Compute similarity between points and centroids
+        /// </summary>
         private void ComputeSimilarity()
         {
+            //just in case
             foreach (var centroid in centroids)
             {
                 centroid.AssignedPoints.Clear();
             }
+
             double distance;
             foreach (var point in points)
             {
                 double min = Double.MaxValue;
-                int centroidNr = 0;
+                int centroidNr = 0; // to keep the index of the selected centroid
                 for (int j = 0; j < numberOfCentroids; j++)
                 {
-                    distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.Y, point.Y);
+                    distance = GetDistance(centroids[j].Center.X, point.X, centroids[j].Center.Y, point.Y); //euclidian
                     if (min > distance)
                     {
                         min = distance;
@@ -162,6 +183,10 @@ namespace KMeansAlgorithm
             }
         }
 
+        /// <summary>
+        /// //Step 6 - functia de convergenta /Dacă funcția de convergență nu se mai modifică putem
+        /// spune că algoritmul s-a încheiat.///
+        /// </summary>
         private void ComputeCost()
         {
             double costCopy = cost;
@@ -184,6 +209,9 @@ namespace KMeansAlgorithm
             costLbl.Text = "Cost: " + cost.ToString();
         }
 
+        /// <summary>
+        /// //Step 4 , 5 ///
+        /// </summary>
         private void ComputeZonesBtn_Click(object sender, EventArgs e)
         {
             ComputeSimilarity();
@@ -195,8 +223,9 @@ namespace KMeansAlgorithm
             {
                 sumX = 0;
                 sumY = 0;
-                if (!centroids[i].AssignedPoints.Count.Equals(0))
+                if (!centroids[i].AssignedPoints.Count.Equals(0)) //ca sa nu crepe la impartirea cu 0
                 {
+                    //calcul centru de greutate
                     foreach (var assignedPoint in centroids[i].AssignedPoints)
                     {
                         pen = new Pen(centroids[i].Color);
@@ -204,11 +233,12 @@ namespace KMeansAlgorithm
                         sumX += assignedPoint.X;
                         sumY += assignedPoint.Y;
                     }
-
+                    //mut centroidul în centrul de greutate calculat
                     centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
                     centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
                 }
             }
+            //redraw centroids
             for (int i = 0; i < numberOfCentroids; i++)
             {
                 if (!centroids[i].AssignedPoints.Count.Equals(0))
