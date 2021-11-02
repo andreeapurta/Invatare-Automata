@@ -83,7 +83,7 @@ namespace KMeansAlgorithm
                     }
                 case Distance.Euclidian:
                     {
-                        distance = Math.Sqrt(Math.Pow(Math.Abs(centroidCenterX - x), 2) + Math.Pow(Math.Abs(centroidCenterY - y), 2));
+                        distance = Math.Sqrt(Math.Pow(centroidCenterX - x, 2) + Math.Pow(centroidCenterY - y, 2));
                         break;
                     }
             }
@@ -197,7 +197,16 @@ namespace KMeansAlgorithm
             {
                 cost += pointToCentroidDistance[i];
             }
-            if (cost != costCopy)
+            int centroidsWithPoints = 0;
+            foreach (var centroid in centroids)
+            {
+                if (centroid.AssignedPoints.Count > 0)
+                {
+                    centroidsWithPoints++;
+                }
+            }
+            //si toti centroizii au puncte
+            if ((cost != costCopy) || (centroidsWithPoints == centroids.Length))
             {
                 epochNumber++;
             }
@@ -237,16 +246,18 @@ namespace KMeansAlgorithm
                     centroids[i].Center.X = (int)(sumX / centroids[i].AssignedPoints.Count);
                     centroids[i].Center.Y = (int)(sumY / centroids[i].AssignedPoints.Count);
                 }
+                else
+                {
+                    centroids[i].Center.X = random.Next(-300, 300);
+                    centroids[i].Center.Y = random.Next(-300, 300);
+                }
             }
             //redraw centroids
             for (int i = 0; i < numberOfCentroids; i++)
             {
-                if (!centroids[i].AssignedPoints.Count.Equals(0))
-                {
-                    Brush brush = new SolidBrush(centroids[i].Color);
-                    graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
-                    graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
-                }
+                Brush brush = new SolidBrush(centroids[i].Color);
+                graph.FillEllipse(brush, centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
+                graph.DrawEllipse(new Pen(Color.Black, 2), centroids[i].Center.X + 300, 300 - centroids[i].Center.Y, 10, 10);
             }
             ComputeCost();
         }
