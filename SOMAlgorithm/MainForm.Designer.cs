@@ -92,9 +92,10 @@ namespace SOMAlgorithm
             this.totalEpochNumberLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalEpochNumberLbl.Location = new System.Drawing.Point(654, 42);
             this.totalEpochNumberLbl.Name = "totalEpochNumberLbl";
-            this.totalEpochNumberLbl.Size = new System.Drawing.Size(126, 20);
+            this.totalEpochNumberLbl.Size = new System.Drawing.Size(144, 20);
             this.totalEpochNumberLbl.TabIndex = 3;
-            this.totalEpochNumberLbl.Text = "Number of runs: ";
+            this.totalEpochNumberLbl.Text = "Number of runs: 10";
+            this.totalEpochNumberLbl.Click += new System.EventHandler(this.totalEpochNumberLbl_Click);
             // 
             // vLbl
             // 

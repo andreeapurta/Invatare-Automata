@@ -115,7 +115,7 @@ namespace SOMAlgorithm
             Pen pen = new Pen(Color.Purple);
             Pen pen1 = new Pen(Color.Black);
             epochNumber = 10;
-            while (alpha > 0.01 && epoch != epochNumber)
+            while (alpha > 0.0001)
             {
                 epoch++;
                 mainPanel.Refresh();
@@ -127,6 +127,7 @@ namespace SOMAlgorithm
                     double max = Int32.MaxValue, dist;
                     int indexInvingatorX = -1, indexInvingatorY = -1;
 
+                    //matricea neuronilor
                     for (int j = 0; j < 10; j++)
                     {
                         for (int k = 0; k < 10; k++)
@@ -145,6 +146,7 @@ namespace SOMAlgorithm
                     alpha = 0.7 * Math.Pow(Math.E, -(epoch / epochNumber));
 
                     int vec = Convert.ToInt32(v), minX, maxX, minY, maxY;
+                    //limitele intervalului care e considerata vecinatatea neuronului invingator
                     minX = indexInvingatorX - vec;
                     maxX = indexInvingatorX + vec;
                     minY = indexInvingatorY - vec;
@@ -175,6 +177,10 @@ namespace SOMAlgorithm
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void totalEpochNumberLbl_Click(object sender, EventArgs e)
         {
         }
     }
